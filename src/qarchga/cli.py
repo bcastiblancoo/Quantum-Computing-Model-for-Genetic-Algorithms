@@ -12,6 +12,18 @@ OBJECTIVES = {
     "maxcut_toy": maxcut_toy_objective,
 }
 
+from qarchga.objectives import (
+    maxcut_toy_objective,
+    build_molecular_hamiltonian,
+    vqe_molecule_objective,
+)
+
+OBJECTIVES = {
+    "maxcut_toy": ("plain", maxcut_toy_objective),
+    "vqe_molecule": ("molecule", vqe_molecule_objective),
+}
+
+
 def main():
     p = argparse.ArgumentParser(prog="qarchga")
     sub = p.add_subparsers(dest="cmd", required=True)
