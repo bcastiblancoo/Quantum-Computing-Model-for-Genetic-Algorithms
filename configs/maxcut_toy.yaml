@@ -1,0 +1,26 @@
+seed: 11
+backend: qiskit
+objective: maxcut_toy
+
+ga:
+  generations: 30
+  population_size: 50
+  elitism: 3
+  selection: rank
+
+  crossover_rate: 0.70
+  mutation_rate: 0.40
+
+  lambda_depth: 0.005
+  lambda_2q: 0.02
+
+genome:
+  n_qubits: 5
+  max_layers: 12
+  init_layers: [4, 7]
+  gate_set_1q: ["rx", "rz"]
+  gate_set_2q: ["cx"]
+
+fitness:
+  param_restarts: 1
+  local_opt_steps: 15

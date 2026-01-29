@@ -1,0 +1,7 @@
+Run: run_20260129_230314
+Generations: 25
+Best fitness: 1.106684
+Best energy (est): -1.106684 Hartree
+Best depth: 1
+Best #2Q gates: 0
+Plots saved to: results/run_20260129_230314/plots
