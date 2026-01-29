@@ -31,3 +31,18 @@ pip install -e .[qiskit]
 pip install -e .[pennylane]
 # or both
 pip install -e .[qiskit,pennylane]
+
+```
+
+## How to run
+
+```bash
+python -m qarchga run --config configs/vqe_h2_pennylane.yaml
+
+#Expect output:
+Saved outputs to: results/run_20260129_203412
+
+#To analyze and generate plots:
+python scripts/analyze_run.py --run_dir results/run_20260129_203412
+
+```
