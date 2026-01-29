@@ -34,6 +34,19 @@ def main():
     args = p.parse_args()
 
     if args.cmd == "run":
+        obj_kind, obj_fn = OBJECTIVES[obj_name]
+        mol_cache = None
+        if obj_kind == "molecule":
+            mol_cfg = cfg.get("molecule")
+            if mol_cfg is None:
+                raise ValueError("Config missing 'molecule:' section for vqe_molecule objective.")
+            H, n_qubits, hf_state = build_molecular_hamiltonian(mol_cfg)
+            mol_cache = {"H": H, "n_qubits": n_qubits, "hf_state": hf_state}
+
+    # override genome qubit count if config says null
+    if cfg.get("genome", "n_qubits", default=None) is None:
+        cfg.raw["genome"]["n_qubits"] = int(n_qubits)
+        
         cfg = Config.load(args.config)
         backend_name = str(cfg.get("backend", default="qiskit"))
         obj_name = str(cfg.get("objective"))
@@ -47,7 +60,12 @@ def main():
             backend = PennyLaneBackend(shots=0)
         else:
             raise ValueError("backend must be 'qiskit' or 'pennylane'")
+        if obj_kind == "molecule":
+            objective = lambda backend, genome: obj_fn(backend, genome, mol_cache)
+        else:
+            objective = obj_fn
+            
+        best_genome, history = run_ga(cfg, backend, objective)
 
-        best_genome, history = run_ga(cfg, backend, OBJECTIVES[obj_name])
         print("\nBest genome struct:\n", best_genome.to_struct())
         print("\nLast gen stats:\n", history[-1])
