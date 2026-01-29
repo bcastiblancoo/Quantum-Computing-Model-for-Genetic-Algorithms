@@ -1,7 +1,5 @@
 # Quantum-Computing-Model-for-Genetic-Algorithms
 
-# qarch-ga — Quantum Architecture Search with Genetic Algorithms
-
 This repository implements a **Genetic Algorithm (GA)** that evolves **quantum circuit architectures**.
 A genome encodes a **parameterized quantum circuit** (PQC): gate sequence, wiring, and continuous parameters.
 
